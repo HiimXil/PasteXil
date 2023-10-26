@@ -1,18 +1,18 @@
 ---
 import Card from "../components/Card.astro";
 const { language, query } = Astro.props;
-let link = import.meta.env.PUBLIC_URL + "code-snippets";
+let link = import.meta.env.URL + "code-snippets";
 if (language == "all" || language == "") {
   if (query == "") {
-    link = import.meta.env.PUBLIC_URL + "code-snippets";
+    link = import.meta.env.URL + "code-snippets";
   } else {
-    link = import.meta.env.PUBLIC_URL + "search/all/" + query;
+    link = import.meta.env.URL + "search/all/" + query;
   }
 } else {
   if (query == "") {
-    link = import.meta.env.PUBLIC_URL + "search/" + language;
+    link = import.meta.env.URL + "search/" + language;
   } else {
-    link = import.meta.env.PUBLIC_URL + "search/" + language + "/" + query;
+    link = import.meta.env.URL + "search/" + language + "/" + query;
   }
 }
 const snippets = await fetch(link).then((res) => res.json());
