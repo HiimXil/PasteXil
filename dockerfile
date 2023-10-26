@@ -11,7 +11,6 @@ WORKDIR /app/frontend
 COPY ./frontend/package*.json .
 COPY ./frontend .
 RUN npm install
-RUN npm run build
 
 EXPOSE 3000
 EXPOSE 4321
