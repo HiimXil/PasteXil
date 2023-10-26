@@ -9,8 +9,8 @@ RUN npx prisma migrate dev
 
 WORKDIR /app/frontend
 COPY ./frontend/package*.json .
-RUN npm install
 COPY ./frontend .
+RUN npm install
 RUN npm run build
 
 EXPOSE 3000
