@@ -1,0 +1,45 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { Code } from "astro:components";
+import CopyCode from "../../components/CopyCode";
+import DeleteForm from "../../components/DeleteForm";
+const { codeSnippet } = Astro.params;
+let id, title, code, language, description;
+const snippets = await fetch(
+  import.meta.env.URL + "code-snippets/" + codeSnippet
+).then((res) => res.json());
+if (snippets) {
+  if (!snippets["error"]) {
+    id = snippets["id"];
+    title = snippets["title"];
+    code = snippets["code"];
+    language = snippets["language"].toLowerCase();
+    description = snippets["description"];
+  } else {
+    //gestion d'erreur
+  }
+} else {
+  //gestion d'erreur
+}
+---
+
+<MainLayout>
+  <h1 class="text-5xl font-extrabold text-center">{title}</h1>
+  <div
+    class="w-4/5 p-2 mt-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg self-center"
+  >
+    <p>{description}</p>
+  </div>
+  <div
+    class="w-4/5 h-4/5 overflow-y-scroll p-4 bg-slackDark mt-8 text-gray-900 text-sm rounded-lg self-center"
+  >
+    <CopyCode code={code} language={language} client:load />
+
+    <a
+      class="text-gray-500 float-right mr-4"
+      href={"/code-snippet/modify/" + id}>modify</a
+    >
+    <DeleteForm id={id} client:load />
+    <Code code={code} lang={language} theme="slack-dark" />
+  </div>
+</MainLayout>

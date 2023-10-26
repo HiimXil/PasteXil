@@ -1,0 +1,10 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import CardCollection from "../components/CardCollection.astro";
+import SearchBar from "../components/SearchBar";
+---
+
+<MainLayout>
+  <SearchBar client:load />
+  <CardCollection language="" query="" />
+</MainLayout>

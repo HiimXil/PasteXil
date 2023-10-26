@@ -1,0 +1,17 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import CardCollection from "../../components/CardCollection.astro";
+import SearchBar from "../../components/SearchBar";
+const { search } = Astro.params;
+let params;
+if (search) {
+  params = search.split("|");
+} else {
+  params = ["", ""];
+}
+---
+
+<MainLayout>
+  <SearchBar query={params[1]} client:load />
+  <CardCollection language={params[0]} query={params[1]} />
+</MainLayout>

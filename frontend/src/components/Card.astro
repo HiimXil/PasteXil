@@ -1,0 +1,21 @@
+---
+import { Code } from "astro:components";
+const { id, title, description, code, language } = Astro.props;
+---
+
+<div class="w-2/5 p-6 mt-4 bg-white border border-gray-200 rounded-lg shadow">
+  <p class="text-gray-500 float-right">{language}</p>
+  <a href={"/code-snippet/" + id}>
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+      {title}
+    </h5>
+  </a>
+  <p class="mb-3 font-normal text-gray-700">{description}</p>
+  <a href={"/code-snippet/" + id}>
+    <div
+      class="w-full h-24 overflow-y-scroll p-4 bg-slackDark mt-8 text-gray-900 text-xs rounded-lg self-center"
+    >
+      <Code code={code} lang={language} theme="slack-dark" />
+    </div>
+  </a>
+</div>

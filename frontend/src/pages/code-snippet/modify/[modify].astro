@@ -1,0 +1,33 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+import UpdateForm from "../../../components/UpdateForm";
+const { modify } = Astro.params;
+let id, title, code, language, description;
+const snippets = await fetch(
+  import.meta.env.URL + "code-snippets/" + modify
+).then((res) => res.json());
+if (snippets) {
+  if (!snippets["error"]) {
+    id = snippets["id"];
+    title = snippets["title"];
+    code = snippets["code"];
+    language = snippets["language"].toLowerCase();
+    description = snippets["description"];
+  } else {
+    //gestion d'erreur
+  }
+} else {
+  //gestion d'erreur
+}
+---
+
+<MainLayout>
+  <UpdateForm
+    id={id}
+    title={title}
+    code={code}
+    language={language}
+    description={description}
+    client:load
+  />
+</MainLayout>

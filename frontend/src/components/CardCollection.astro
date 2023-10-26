@@ -1,0 +1,44 @@
+---
+import Card from "../components/Card.astro";
+const { language, query } = Astro.props;
+let link = import.meta.env.PUBLIC_URL + "code-snippets";
+if (language == "all" || language == "") {
+  if (query == "") {
+    link = import.meta.env.PUBLIC_URL + "code-snippets";
+  } else {
+    link = import.meta.env.PUBLIC_URL + "search/all/" + query;
+  }
+} else {
+  if (query == "") {
+    link = import.meta.env.PUBLIC_URL + "search/" + language;
+  } else {
+    link = import.meta.env.PUBLIC_URL + "search/" + language + "/" + query;
+  }
+}
+const snippets = await fetch(link).then((res) => res.json());
+type SnippetType = {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  description: string;
+  code: string;
+  language: string;
+};
+---
+
+<div
+  class="flex justify-around overflow-y-scroll w-4/5 ml-auto mr-auto flex-wrap"
+>
+  {
+    snippets.map((snippet: SnippetType) => (
+      <Card
+        title={snippet.title}
+        description={snippet.description}
+        id={snippet.id}
+        language={snippet.language.toLowerCase()}
+        code={snippet.code}
+      />
+    ))
+  }
+</div>
