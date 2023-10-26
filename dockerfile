@@ -1,19 +1,20 @@
 FROM node:18
 WORKDIR /app
 
-COPY ./backend/package*.json ./
+WORKDIR /app/backend
+COPY ./backend/package*.json .
 RUN npm install
-COPY ./backend ./backend
+COPY ./backend .
+
 RUN npx prisma migrate dev
 
 COPY ./entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
-
-COPY ./frontend ./frontend
 WORKDIR /app/frontend
-
+COPY ./frontend/package*.json .
 RUN npm install
+COPY ./frontend .
 RUN npm run build
 
 EXPOSE 3000
