@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  pastexil:
+    image: pastexil
+    container_name: pastexil
+    restart: unless-stopped
+    environment:
+      URL: 'http://localhost:3000/'
+      PUBLIC_URL: 'http://192.168.247.2:3000/'
